@@ -31,6 +31,9 @@ public final class RequestBodyConverter<T> implements Converter<T, RequestBody> 
     @Override
     public RequestBody convert(T value) throws IOException {
 
+        if(value instanceof String){
+            return RequestBody.create(MEDIA_TYPE, (String) value);
+        }
         return RequestBody.create(MEDIA_TYPE, gson.toJson(value));
     }
 

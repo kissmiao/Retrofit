@@ -2,10 +2,9 @@ package com.hongliang.retrofitdemo.httputil.interceptor;
 
 
 
-
 import com.hongliang.retrofitdemo.BaseApplication;
-import com.hongliang.retrofitdemo.NetWorkUtils;
 import com.hongliang.retrofitdemo.httputil.BuildConfigs;
+import com.hongliang.retrofitdemo.httputil.NetWorkUtils;
 
 import java.io.IOException;
 
@@ -26,13 +25,13 @@ public class CacheInterceptor implements Interceptor {
         Response response = chain.proceed(request);
         if (NetWorkUtils.isNetWorkAvailable(BaseApplication.getInstance())) {//有网情况下，从服务器获取
             int maxAge = BuildConfigs.DEFAULT_COOKIE_NETWORK_TIME;
-// 有网络时, 缓存最大保存时长为60s
+        // 有网络时, 缓存最大保存时长为60s
             response.newBuilder()
                     .header("Cache-Control", "public, max-age=" + maxAge)
                     .removeHeader("Pragma")
                     .build();
         } else {//没网情况下，一律从缓存获取
-// 无网络时，设置超时为30天
+            // 无网络时，设置超时为30天
             int maxStale = BuildConfigs.DEFAULT_COOKIE_NO_NETWORK_TIME;
             response.newBuilder()
                     .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)

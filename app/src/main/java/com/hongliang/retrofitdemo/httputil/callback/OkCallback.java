@@ -1,7 +1,9 @@
 package com.hongliang.retrofitdemo.httputil.callback;
 
+import android.util.Log;
 import android.widget.Toast;
 
+import com.hongliang.retrofitdemo.BaseApplication;
 import com.hongliang.retrofitdemo.httputil.HttpErrorConstants;
 
 import java.net.ConnectException;
@@ -46,6 +48,8 @@ public abstract class OkCallback<T> implements Callback<T> {
     protected void onFail(Call<T> call, Throwable t, Response<T> response) {
         onAfter(call);
 
+        Log.i("YouShuSDK", "init failed : " + t.getMessage());
+        Toast.makeText(BaseApplication.getInstance(), t.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     /**
