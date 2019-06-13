@@ -1,7 +1,7 @@
 package com.hongliang.retrofitdemo.httputil;
 
 
-import com.hongliang.retrofitdemo.httputil.bean.ResponseData;
+import com.hongliang.retrofitdemo.httputil.bean.BaseBean;
 import com.hongliang.retrofitdemo.login.LoginBean;
 
 import java.util.Map;
@@ -19,6 +19,6 @@ public interface Api {
      * @return
      */
     @POST("user/register")
-    Call<ResponseData<LoginBean>> register(@QueryMap Map<String ,String> post);
+    Call<BaseBean<LoginBean>> register(@QueryMap Map<String ,String> post);
 
 }

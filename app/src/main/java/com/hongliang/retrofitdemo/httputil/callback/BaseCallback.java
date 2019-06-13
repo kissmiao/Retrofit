@@ -14,7 +14,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public abstract class OkCallback<T> implements Callback<T> {
+public abstract class BaseCallback<T> implements Callback<T> {
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
         //这里可以对其他Code 吗码进行监听，做特殊处理

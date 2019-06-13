@@ -6,7 +6,7 @@ import com.hongliang.retrofitdemo.httputil.bean.BaseBean;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public abstract class UploadCallback<T extends BaseBean> extends OkCallback<T>  {
+public abstract class UploadCallback<T extends BaseBean> extends BaseCallback<T> {
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.hongliang.retrofitdemo.httputil.HttpClient;
-import com.hongliang.retrofitdemo.httputil.bean.ResponseData;
+import com.hongliang.retrofitdemo.httputil.bean.BaseBean;
 import com.hongliang.retrofitdemo.httputil.callback.RequestCallBack;
 import com.hongliang.retrofitdemo.login.LoginBean;
 
@@ -18,9 +18,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    /**
-     *
-     */
+
     private Button register;
 
     @Override
@@ -41,32 +39,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register:
-                Map<String, String> map = new HashMap();
-                map.put("username", "13720232953");
-                map.put("password", "123qwe");
-                map.put("repassword", "123qwe");
-
-                HttpClient.getInstance().getApiService().register(map).enqueue(new RequestCallBack<ResponseData<LoginBean>>() {
-                    @Override
-                    public void onSuccessful(Call<ResponseData<LoginBean>> call, Response<ResponseData<LoginBean>> response) {
-
-                    }
-
-                    @Override
-                    protected void onFail(Call<ResponseData<LoginBean>> call, Throwable t, Response<ResponseData<LoginBean>> response) {
-                        super.onFail(call, t, response);
-                    }
-
-                    @Override
-                    protected void onAfter(Call<ResponseData<LoginBean>> call) {
-                        super.onAfter(call);
-                    }
-                });
+                onRegister();
 
                 break;
 
         }
     }
+
+
+    private void onRegister() {
+        Map<String, String> map = new HashMap();
+        map.put("username", "13720232953");
+        map.put("password", "123qwe");
+        map.put("repassword", "123qwe");
+
+        HttpClient.getInstance().getApiService().register(map).enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
+            @Override
+            public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
+
+            }
+
+            @Override
+            protected void onFail(Call<BaseBean<LoginBean>> call, Throwable t, Response<BaseBean<LoginBean>> response) {
+                super.onFail(call, t, response);
+            }
+
+            @Override
+            protected void onAfter(Call<BaseBean<LoginBean>> call) {
+                super.onAfter(call);
+            }
+        });
+    }
+
+
+
+
+
+
+
 
 
 }

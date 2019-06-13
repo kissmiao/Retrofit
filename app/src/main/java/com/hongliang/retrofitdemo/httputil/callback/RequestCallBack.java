@@ -6,13 +6,13 @@ import com.hongliang.retrofitdemo.httputil.bean.BaseBean;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public abstract class RequestCallBack<T extends BaseBean> extends OkCallback<T> {
+public abstract class RequestCallBack<T> extends BaseCallback<T> {
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
         if (200 == response.code()) {
             onAfter(call);
-            String code = ((BaseBean) response.body()).getErrorCode();
-            if (!code.equals("0")) {
+            int code = ((BaseBean) response.body()).getErrorCode();
+            if (code != 0) {
                 onFail(call, new Throwable(((BaseBean) response.body()).getErrorMsg()), response);
             } else {
                 onSuccessful(call, response);
