@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.hongliang.retrofitdemo.httputil.HttpClient;
 import com.hongliang.retrofitdemo.httputil.bean.BaseBean;
@@ -18,7 +19,9 @@ import retrofit2.Response;
 
 /**
  * 玩安卓部分功能需要Cookie本地持久化
+ * https://www.jianshu.com/p/b1ab67ebdfca
  */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         HttpClient.getInstance().getApiService().register(map).enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
             @Override
             public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
-
+                Toast.makeText(MainActivity.this, "请求成功：" + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         HttpClient.getInstance().getApiService().login(map).enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
             @Override
             public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
-
+                Toast.makeText(MainActivity.this, "请求成功：" + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -105,9 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
-
-
 
 
 }
