@@ -16,10 +16,17 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Response;
 
+/**
+ * 玩安卓部分功能需要Cookie本地持久化
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private Button register;
+    /**
+     * 登录
+     */
+    private Button mLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         register = (Button) findViewById(R.id.register);
         register.setOnClickListener(this);
+        mLogin = (Button) findViewById(R.id.login);
+        mLogin.setOnClickListener(this);
     }
 
     @Override
@@ -40,16 +49,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.register:
                 onRegister();
-
                 break;
 
+            case R.id.login:
+                onLogin();
+                break;
         }
     }
 
 
     private void onRegister() {
         Map<String, String> map = new HashMap();
-        map.put("username", "13720232953");
+        map.put("username", "13720232954");
         map.put("password", "123qwe");
         map.put("repassword", "123qwe");
 
@@ -72,8 +83,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    private void onLogin() {
+        Map<String, String> map = new HashMap();
+        map.put("username", "13720232954");
+        map.put("password", "123qwe");
 
+        HttpClient.getInstance().getApiService().login(map).enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
+            @Override
+            public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
 
+            }
+
+            @Override
+            protected void onFail(Call<BaseBean<LoginBean>> call, Throwable t, Response<BaseBean<LoginBean>> response) {
+                super.onFail(call, t, response);
+            }
+
+            @Override
+            protected void onAfter(Call<BaseBean<LoginBean>> call) {
+                super.onAfter(call);
+            }
+        });
+    }
 
 
 

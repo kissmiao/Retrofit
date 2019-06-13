@@ -21,4 +21,10 @@ public interface Api {
     @POST("user/register")
     Call<BaseBean<LoginBean>> register(@QueryMap Map<String ,String> post);
 
+
+    @POST("user/login")
+    Call<BaseBean<LoginBean>> login(@QueryMap Map<String ,String> post);
+
+
+
 }
