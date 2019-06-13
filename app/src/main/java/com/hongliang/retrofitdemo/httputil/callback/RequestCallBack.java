@@ -11,9 +11,9 @@ public abstract class RequestCallBack<T extends BaseBean> extends OkCallback<T> 
     public void onResponse(Call<T> call, Response<T> response) {
         if (200 == response.code()) {
             onAfter(call);
-            String code = ((BaseBean) response.body()).getCode();
+            String code = ((BaseBean) response.body()).getErrorCode();
             if (!code.equals("0")) {
-                onFail(call, new Throwable(((BaseBean) response.body()).getMsg()), response);
+                onFail(call, new Throwable(((BaseBean) response.body()).getErrorMsg()), response);
             } else {
                 onSuccessful(call, response);
             }

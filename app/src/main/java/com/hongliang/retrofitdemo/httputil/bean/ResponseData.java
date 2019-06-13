@@ -2,7 +2,7 @@ package com.hongliang.retrofitdemo.httputil.bean;
 
 import java.io.Serializable;
 
-public class ResponseData<T> implements Serializable {
+public class ResponseData<T> extends BaseBean implements Serializable {
 
     private static final long serialVersionUID = 5213230387175987834L;
     /**

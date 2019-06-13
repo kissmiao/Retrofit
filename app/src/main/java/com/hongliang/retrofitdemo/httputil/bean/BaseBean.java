@@ -1,24 +1,23 @@
 package com.hongliang.retrofitdemo.httputil.bean;
 
 public class BaseBean {
-    private String msg;
-    private String code;
+    private String errorCode;
+    private String errorMsg;
 
-    public String getMsg() {
-        return msg;
+
+    public String getErrorCode() {
+        return errorCode;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
     }
 
-    public String getCode() {
-        return code;
+    public String getErrorMsg() {
+        return errorMsg;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
-
-
 }
