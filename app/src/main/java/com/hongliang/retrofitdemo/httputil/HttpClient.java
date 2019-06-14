@@ -3,7 +3,6 @@ package com.hongliang.retrofitdemo.httputil;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hongliang.retrofitdemo.ExecutorCallAdapterFactory;
 import com.hongliang.retrofitdemo.httputil.converter.MyGsonConverterFactory;
 import com.hongliang.retrofitdemo.httputil.interceptor.CacheInterceptor;
 import com.hongliang.retrofitdemo.httputil.interceptor.HeaderInterceptor;

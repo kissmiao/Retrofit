@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.hongliang.retrofitdemo.httputil.CallManager;
 import com.hongliang.retrofitdemo.httputil.HttpClient;
 import com.hongliang.retrofitdemo.httputil.bean.BaseBean;
 import com.hongliang.retrofitdemo.httputil.callback.AcceptConsumer;
@@ -30,7 +31,6 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    private Button register;
     /**
      * 登录
      */
@@ -46,6 +46,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 重新Call可添加tag
      */
     private Button mLogin3;
+    /**
+     * 注册
+     */
+    private Button mRegister;
+    /**
+     * 取消请求
+     */
+    private Button mClean;
+
+
+    private int tag = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +68,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        register = (Button) findViewById(R.id.register);
-        register.setOnClickListener(this);
         mLogin = (Button) findViewById(R.id.login);
         mLogin.setOnClickListener(this);
         mLogin2 = (Button) findViewById(R.id.login2);
         mLogin2.setOnClickListener(this);
         mLogin3 = (Button) findViewById(R.id.login3);
         mLogin3.setOnClickListener(this);
+        mRegister = (Button) findViewById(R.id.register);
+        mRegister.setOnClickListener(this);
+        mClean = (Button) findViewById(R.id.clean);
+        mClean.setOnClickListener(this);
     }
 
     @Override
@@ -81,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.login3:
                 onLogin3();
+                break;
+            case R.id.clean:
+                CallManager.getInstance().cancel(tag);
                 break;
         }
     }
@@ -116,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, String> map = new HashMap();
         map.put("username", "13720232954");
         map.put("password", "123qwe");
+
         HttpClient.getInstance().getApiService().login(map).enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
             @Override
             public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
@@ -133,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        //
     }
 
 
@@ -162,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
 
@@ -170,7 +185,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, String> map = new HashMap();
         map.put("username", "13720232954");
         map.put("password", "123qwe");
-        HttpClient.getInstance().getApiService().login2(map).tag("").enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
+
+        HttpClient.getInstance().getApiService().login2(map).tag(tag).enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
             @Override
             public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
                 Toast.makeText(MainActivity.this, "请求成功：" + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
@@ -193,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        HttpClient.getInstance().getOkHttpClient().dispatcher().queuedCalls().get(0).cancel();
+
 
     }
 }

@@ -1,8 +1,8 @@
-package com.hongliang.retrofitdemo;
+package com.hongliang.retrofitdemo.httputil;
 
 import android.annotation.SuppressLint;
-
-import com.hongliang.retrofitdemo.httputil.OkCall;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -89,10 +89,9 @@ public final class ExecutorCallAdapterFactory extends CallAdapter.Factory {
                         @Override
                         public void run() {
                             if (delegate.isCanceled()) {
-                                // Emulate OkHttp's behavior of throwing/delivering an IOException on cancellation.
-                                callback.onFailure(ExecutorCallbackCall2.this, new IOException("Canceled"));
+                                callResult(1, callback, ExecutorCallbackCall2.this, null, new IOException("Canceled"));
                             } else {
-                                callback.onResponse(ExecutorCallbackCall2.this, response);
+                                callResult(2, callback, ExecutorCallbackCall2.this, response, null);
                             }
                         }
                     });
@@ -103,16 +102,34 @@ public final class ExecutorCallAdapterFactory extends CallAdapter.Factory {
                     callbackExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            callback.onFailure(ExecutorCallbackCall2.this, t);
+                            callResult(3, callback, ExecutorCallbackCall2.this, null, t);
                         }
                     });
                 }
             });
         }
 
+
+        private void callResult(int type, Callback<T> callback, OkCall<T> call, @Nullable Response<T> response, @Nullable Throwable t) {
+            Log.i("LOG", "------" + type);
+
+            try {
+                if (type == 1) {
+                    callback.onFailure(call, new IOException("Canceled"));
+                } else if (type == 2) {
+                    callback.onResponse(call, response);
+                } else if (type == 3) {
+                    callback.onFailure(call, t);
+                }
+            } finally {
+                CallManager.getInstance().remove(this);
+            }
+        }
+
+
         @Override
         public OkCall<T> tag(Object obj) {
-
+            CallManager.getInstance().add(this, obj != null ? obj : "NO_TAG");
             return this;
         }
 

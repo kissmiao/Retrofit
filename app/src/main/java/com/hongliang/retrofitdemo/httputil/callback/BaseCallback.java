@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.hongliang.retrofitdemo.BaseApplication;
 import com.hongliang.retrofitdemo.httputil.HttpErrorConstants;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -38,17 +39,27 @@ public abstract class BaseCallback<T> implements Callback<T> {
         } else if (exception instanceof SocketTimeoutException) {
             //连接超时
             errorMsg = HttpErrorConstants.ERR_SOCKETTIMEOUTEXCEPTION_ERROR;
+        } else if (exception instanceof IOException) {
+            Log.i("LOG", " -------------exception.getMessage()" + exception.getMessage());
+            try {
+                if (exception.getMessage().equals("Socket closed") || exception.getMessage().equals("Canceled")) {
+                    return;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            errorMsg = HttpErrorConstants.ERR_NETEXCEPTION_ERROR;
         } else {
             //其他网络异常
             errorMsg = HttpErrorConstants.ERR_NETEXCEPTION_ERROR;
         }
+
         onFail(call, new Throwable(errorMsg), null);
     }
 
     protected void onFail(Call<T> call, Throwable t, Response<T> response) {
         onAfter(call);
 
-        Log.i("YouShuSDK", "init failed : " + t.getMessage());
         Toast.makeText(BaseApplication.getInstance(), t.getMessage(), Toast.LENGTH_LONG).show();
     }
 

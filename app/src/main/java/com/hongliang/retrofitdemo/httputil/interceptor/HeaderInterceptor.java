@@ -1,6 +1,8 @@
 package com.hongliang.retrofitdemo.httputil.interceptor;
 
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -21,17 +23,21 @@ public class HeaderInterceptor implements Interceptor {
 //        String stringheaders = header.get("headerInfos");
 //        builder.addHeader("headerInfos", stringheaders);
 //
-//        RequestBody requestBody = originalRequest.body();
-//        Buffer buffer = new Buffer();
-//        requestBody.writeTo(buffer);
-//        String oldParamsJson = buffer.readUtf8();
-//        String sign = EncryptUtils.encryptMD5ToString(stringheaders + oldParamsJson + originalRequest.headers().get("key")).toLowerCase();
+        RequestBody requestBody = originalRequest.body();
+        Buffer buffer = new Buffer();
+        requestBody.writeTo(buffer);
+        String oldParamsJson = buffer.readUtf8();
+
+        Log.i("LOG", "oldParamsJson" + oldParamsJson);
+
+
+        //     String sign = EncryptUtils.encryptMD5ToString(stringheaders + oldParamsJson + originalRequest.headers().get("key")).toLowerCase();
 //        builder.addHeader("sign", sign.toLowerCase());
 //        builder.removeHeader("key");
 
         Request.Builder requestBuilder = builder.method(originalRequest.method(), originalRequest.body());
         Request request = requestBuilder.build();
-        requestBuilder.tag("");
+
         return chain.proceed(request);
     }
 }
