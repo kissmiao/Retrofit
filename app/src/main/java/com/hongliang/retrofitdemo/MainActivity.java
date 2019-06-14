@@ -26,6 +26,7 @@ import retrofit2.Response;
 /**
  * 玩安卓部分功能需要Cookie本地持久化
  * https://www.jianshu.com/p/b1ab67ebdfca
+ * https://www.jianshu.com/p/6a88c4b4bb26
  */
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {

@@ -9,9 +9,7 @@ import java.util.List;
 import retrofit2.Call;
 
 /**
- * 创建时间：2018/5/31
- * 编写人： chengxin
- * 功能描述：全局管理Call请求管理,just like {@link okhttp3.Dispatcher}
+ * https://www.jianshu.com/p/6a88c4b4bb26
  */
 public final class CallManager implements ActionManager<Call<?>> {
     @GuardedBy("this")

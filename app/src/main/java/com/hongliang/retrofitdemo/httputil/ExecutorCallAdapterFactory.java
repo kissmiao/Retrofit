@@ -20,9 +20,6 @@ import retrofit2.Retrofit;
 import static android.support.v4.util.Preconditions.checkNotNull;
 
 
-/**
- * just for android post UI thread
- */
 public final class ExecutorCallAdapterFactory extends CallAdapter.Factory {
 
     public static final CallAdapter.Factory INSTANCE = new ExecutorCallAdapterFactory();
@@ -111,8 +108,6 @@ public final class ExecutorCallAdapterFactory extends CallAdapter.Factory {
 
 
         private void callResult(int type, Callback<T> callback, OkCall<T> call, @Nullable Response<T> response, @Nullable Throwable t) {
-            Log.i("LOG", "------" + type);
-
             try {
                 if (type == 1) {
                     callback.onFailure(call, new IOException("Canceled"));
