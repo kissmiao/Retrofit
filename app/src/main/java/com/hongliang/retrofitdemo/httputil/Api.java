@@ -30,4 +30,9 @@ public interface Api {
     @POST("user/login")
     Observable<BaseBean<LoginBean>> logins(@QueryMap Map<String, String> post);
 
+
+
+    @POST("user/login")
+    OkCall<BaseBean<LoginBean>> login2(@QueryMap Map<String ,String> post);
+
 }

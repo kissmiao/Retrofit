@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 使用RxJava登录
      */
     private Button mLogin2;
+    /**
+     * 重新Call可添加tag
+     */
+    private Button mLogin3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mLogin.setOnClickListener(this);
         mLogin2 = (Button) findViewById(R.id.login2);
         mLogin2.setOnClickListener(this);
+        mLogin3 = (Button) findViewById(R.id.login3);
+        mLogin3.setOnClickListener(this);
     }
 
     @Override
@@ -67,12 +73,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.register:
                 onRegister();
                 break;
-
             case R.id.login:
                 onLogin();
                 break;
             case R.id.login2:
                 onLogin2();
+                break;
+            case R.id.login3:
+                onLogin3();
                 break;
         }
     }
@@ -104,10 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void onLogin() {
+
         Map<String, String> map = new HashMap();
         map.put("username", "13720232954");
         map.put("password", "123qwe");
-
         HttpClient.getInstance().getApiService().login(map).enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
             @Override
             public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
@@ -124,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onAfter(call);
             }
         });
+
+        //
     }
 
 
@@ -156,4 +166,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    private void onLogin3() {
+        Map<String, String> map = new HashMap();
+        map.put("username", "13720232954");
+        map.put("password", "123qwe");
+        HttpClient.getInstance().getApiService().login2(map).tag("").enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
+            @Override
+            public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
+                Toast.makeText(MainActivity.this, "请求成功：" + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected void onFail(Call<BaseBean<LoginBean>> call, Throwable t, Response<BaseBean<LoginBean>> response) {
+                super.onFail(call, t, response);
+            }
+
+            @Override
+            protected void onAfter(Call<BaseBean<LoginBean>> call) {
+                super.onAfter(call);
+            }
+        });
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        HttpClient.getInstance().getOkHttpClient().dispatcher().queuedCalls().get(0).cancel();
+
+    }
 }

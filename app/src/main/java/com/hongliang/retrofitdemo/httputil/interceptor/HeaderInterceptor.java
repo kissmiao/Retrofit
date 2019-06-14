@@ -31,6 +31,7 @@ public class HeaderInterceptor implements Interceptor {
 
         Request.Builder requestBuilder = builder.method(originalRequest.method(), originalRequest.body());
         Request request = requestBuilder.build();
+        requestBuilder.tag("");
         return chain.proceed(request);
     }
 }

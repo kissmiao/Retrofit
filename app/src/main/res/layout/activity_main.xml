@@ -27,5 +27,10 @@
         android:text="使用RxJava登录"
         app:layout_constraintLeft_toRightOf="@id/login" />
 
-
+    <Button
+        android:id="@+id/login3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="重新Call可添加tag"
+        app:layout_constraintLeft_toRightOf="@id/login2" />
 </android.support.constraint.ConstraintLayout>

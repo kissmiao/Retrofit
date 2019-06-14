@@ -3,6 +3,7 @@ package com.hongliang.retrofitdemo.httputil;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.hongliang.retrofitdemo.ExecutorCallAdapterFactory;
 import com.hongliang.retrofitdemo.httputil.converter.MyGsonConverterFactory;
 import com.hongliang.retrofitdemo.httputil.interceptor.CacheInterceptor;
 import com.hongliang.retrofitdemo.httputil.interceptor.HeaderInterceptor;
@@ -19,7 +20,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 public class HttpClient {
     private Api api;
+
+    private static OkHttpClient client;
     private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJava2CallAdapterFactory.create();
+
     private HttpClient() {
         Cache cache = new Cache(new File(BuildConfigs.PATH_CACHE), BuildConfigs.DEFAULT_CACHE_SIZE);
 
@@ -33,8 +37,7 @@ public class HttpClient {
                 .writeTimeout(BuildConfigs.DEFAULT_WRITE_TIMEOUT, TimeUnit.SECONDS)//设置写的超时时间
                 .retryOnConnectionFailure(true);//错误重连
 
-        OkHttpClient client = builder.build();
-
+        client = builder.build();
 
         Gson gson = new GsonBuilder().disableHtmlEscaping().enableComplexMapKeySerialization().create();
 
@@ -42,10 +45,11 @@ public class HttpClient {
                 .baseUrl(AppConst.BASE_URL)
                 .client(client)
                 .addConverterFactory(MyGsonConverterFactory.create(gson))
-                   .addCallAdapterFactory(rxJavaCallAdapterFactory)
-                //   .callbackExecutor()
+                .addCallAdapterFactory(rxJavaCallAdapterFactory)
+                .addCallAdapterFactory(ExecutorCallAdapterFactory.INSTANCE)
                 .build();
         api = retrofit.create(Api.class);
+
 
     }
 
@@ -63,5 +67,10 @@ public class HttpClient {
     public Api getApiService() {
         return api;
     }
+
+    public OkHttpClient getOkHttpClient() {
+        return client;
+    }
+
 
 }
