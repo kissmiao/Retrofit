@@ -13,11 +13,13 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 public class HttpClient {
     private Api api;
-
+    private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJava2CallAdapterFactory.create();
     private HttpClient() {
         Cache cache = new Cache(new File(BuildConfigs.PATH_CACHE), BuildConfigs.DEFAULT_CACHE_SIZE);
 
@@ -40,7 +42,7 @@ public class HttpClient {
                 .baseUrl(AppConst.BASE_URL)
                 .client(client)
                 .addConverterFactory(MyGsonConverterFactory.create(gson))
-                //   .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                   .addCallAdapterFactory(rxJavaCallAdapterFactory)
                 //   .callbackExecutor()
                 .build();
         api = retrofit.create(Api.class);
