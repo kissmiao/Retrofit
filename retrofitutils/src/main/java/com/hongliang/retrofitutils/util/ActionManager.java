@@ -1,4 +1,4 @@
-package com.hongliang.retrofitdemo.httputil;
+package com.hongliang.retrofitutils.util;
 
 import android.app.Activity;
 import android.app.Fragment;

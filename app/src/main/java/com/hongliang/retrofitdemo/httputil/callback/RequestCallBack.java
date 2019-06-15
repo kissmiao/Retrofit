@@ -1,7 +1,9 @@
 package com.hongliang.retrofitdemo.httputil.callback;
 
 
-import com.hongliang.retrofitdemo.httputil.bean.BaseBean;
+
+import com.hongliang.retrofitdemo.login.BaseBean;
+import com.hongliang.retrofitutils.callback.BaseCallback;
 
 import retrofit2.Call;
 import retrofit2.Response;

@@ -1,4 +1,4 @@
-package com.hongliang.retrofitdemo.httputil;
+package com.hongliang.retrofitutils.util;
 
 public class HttpErrorConstants {
     public static final String ERR_UNKNOWNHOSTEXCEPTION_ERROR = "网络连接失败,请检查网络设置";

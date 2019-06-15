@@ -1,7 +1,8 @@
 package com.hongliang.retrofitdemo.httputil.callback;
 
 
-import com.hongliang.retrofitdemo.httputil.bean.BaseBean;
+
+import com.hongliang.retrofitdemo.login.BaseBean;
 
 import io.reactivex.functions.Consumer;
 

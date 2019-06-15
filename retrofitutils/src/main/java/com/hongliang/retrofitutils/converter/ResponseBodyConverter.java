@@ -1,4 +1,4 @@
-package com.hongliang.retrofitdemo.httputil.converter;
+package com.hongliang.retrofitutils.converter;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;

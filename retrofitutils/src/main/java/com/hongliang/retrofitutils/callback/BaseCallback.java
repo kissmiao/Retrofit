@@ -1,10 +1,8 @@
-package com.hongliang.retrofitdemo.httputil.callback;
+package com.hongliang.retrofitutils.callback;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import com.hongliang.retrofitdemo.BaseApplication;
-import com.hongliang.retrofitdemo.httputil.HttpErrorConstants;
+import com.hongliang.retrofitutils.util.HttpErrorConstants;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -60,7 +58,7 @@ public abstract class BaseCallback<T> implements Callback<T> {
     protected void onFail(Call<T> call, Throwable t, Response<T> response) {
         onAfter(call);
 
-        Toast.makeText(BaseApplication.getInstance(), t.getMessage(), Toast.LENGTH_LONG).show();
+
     }
 
     /**

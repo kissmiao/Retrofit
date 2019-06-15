@@ -1,4 +1,4 @@
-package com.hongliang.retrofitdemo.httputil;
+package com.hongliang.retrofitutils.util;
 
 import android.support.annotation.GuardedBy;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.hongliang.retrofitdemo.httputil.bean;
+package com.hongliang.retrofitdemo.login;
 
 public class BaseBean<T> {
 

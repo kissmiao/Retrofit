@@ -1,8 +1,9 @@
-package com.hongliang.retrofitdemo.httputil;
+package com.hongliang.retrofitutils.util;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.Nullable;
-import android.util.Log;
+
+import com.hongliang.retrofitutils.OkCall;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

@@ -1,4 +1,4 @@
-package com.hongliang.retrofitdemo.httputil.callback;
+package com.hongliang.retrofitutils.callback;
 
 
 import java.net.SocketException;

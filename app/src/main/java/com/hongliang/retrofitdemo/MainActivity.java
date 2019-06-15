@@ -6,13 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.hongliang.retrofitdemo.httputil.CallManager;
-import com.hongliang.retrofitdemo.httputil.HttpClient;
-import com.hongliang.retrofitdemo.httputil.bean.BaseBean;
+import com.hongliang.retrofitdemo.httputil.Api;
 import com.hongliang.retrofitdemo.httputil.callback.AcceptConsumer;
-import com.hongliang.retrofitdemo.httputil.callback.ConsumerError;
 import com.hongliang.retrofitdemo.httputil.callback.RequestCallBack;
+import com.hongliang.retrofitdemo.login.BaseBean;
 import com.hongliang.retrofitdemo.login.LoginBean;
+import com.hongliang.retrofitutils.RetrofitManage;
+import com.hongliang.retrofitutils.callback.ConsumerError;
+import com.hongliang.retrofitutils.util.CallManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,8 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-
-
     }
 
     private void initView() {
@@ -105,26 +104,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void onRegister() {
         Map<String, String> map = new HashMap();
-        map.put("username", "13720232954");
+        map.put("username", "13720232958");
         map.put("password", "123qwe");
         map.put("repassword", "123qwe");
 
-        HttpClient.getInstance().getApiService().register(map).enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
-            @Override
-            public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
-                Toast.makeText(MainActivity.this, "请求成功：" + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
-            }
+        RetrofitManage.getInstents().onCreate(Api.class)
+                .register(map)
+                .enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
+                    @Override
+                    public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
+                        Toast.makeText(MainActivity.this, "注册成功：" + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
+                    }
 
-            @Override
-            protected void onFail(Call<BaseBean<LoginBean>> call, Throwable t, Response<BaseBean<LoginBean>> response) {
-                super.onFail(call, t, response);
-            }
+                    @Override
+                    protected void onFail(Call<BaseBean<LoginBean>> call, Throwable t, Response<BaseBean<LoginBean>> response) {
+                        super.onFail(call, t, response);
+                    }
 
-            @Override
-            protected void onAfter(Call<BaseBean<LoginBean>> call) {
-                super.onAfter(call);
-            }
-        });
+                    @Override
+                    protected void onAfter(Call<BaseBean<LoginBean>> call) {
+                        super.onAfter(call);
+                    }
+                });
     }
 
 
@@ -134,23 +135,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         map.put("username", "13720232954");
         map.put("password", "123qwe");
 
-        HttpClient.getInstance().getApiService().login(map).enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
-            @Override
-            public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
-                Toast.makeText(MainActivity.this, "请求成功：" + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
-            }
+        RetrofitManage.getInstents().onCreate(Api.class)
+                .login(map)
+                .enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
+                    @Override
+                    public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
+                        Toast.makeText(MainActivity.this, "登录成功：" + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
+                    }
 
-            @Override
-            protected void onFail(Call<BaseBean<LoginBean>> call, Throwable t, Response<BaseBean<LoginBean>> response) {
-                super.onFail(call, t, response);
-            }
+                    @Override
+                    protected void onFail(Call<BaseBean<LoginBean>> call, Throwable t, Response<BaseBean<LoginBean>> response) {
+                        super.onFail(call, t, response);
+                    }
 
-            @Override
-            protected void onAfter(Call<BaseBean<LoginBean>> call) {
-                super.onAfter(call);
-            }
-        });
-
+                    @Override
+                    protected void onAfter(Call<BaseBean<LoginBean>> call) {
+                        super.onAfter(call);
+                    }
+                });
     }
 
 
@@ -158,14 +160,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, String> map = new HashMap();
         map.put("username", "13720232954");
         map.put("password", "123qwe");
-        disposable = HttpClient.getInstance().getApiService()
+        disposable = RetrofitManage.getInstents().onCreate(Api.class)
                 .logins(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new AcceptConsumer<LoginBean>() {
                     @Override
                     public void onSuccessful(BaseBean<LoginBean> loginBeanBaseBean) {
-                        Toast.makeText(MainActivity.this, "请求成功：" + loginBeanBaseBean.getData().getUsername(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "登录成功：" + loginBeanBaseBean.getData().getUsername(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -187,22 +189,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         map.put("username", "13720232954");
         map.put("password", "123qwe");
 
-        HttpClient.getInstance().getApiService().login2(map).tag(tag).enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
-            @Override
-            public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
-                Toast.makeText(MainActivity.this, "请求成功：" + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
-            }
+        RetrofitManage.getInstents().onCreate(Api.class)
+                .login2(map)
+                .tag(tag)
+                .enqueue(new RequestCallBack<BaseBean<LoginBean>>() {
+                    @Override
+                    public void onSuccessful(Call<BaseBean<LoginBean>> call, Response<BaseBean<LoginBean>> response) {
+                        Toast.makeText(MainActivity.this, "登录成功：" + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
+                    }
 
-            @Override
-            protected void onFail(Call<BaseBean<LoginBean>> call, Throwable t, Response<BaseBean<LoginBean>> response) {
-                super.onFail(call, t, response);
-            }
+                    @Override
+                    protected void onFail(Call<BaseBean<LoginBean>> call, Throwable t, Response<BaseBean<LoginBean>> response) {
+                        super.onFail(call, t, response);
+                    }
 
-            @Override
-            protected void onAfter(Call<BaseBean<LoginBean>> call) {
-                super.onAfter(call);
-            }
-        });
+                    @Override
+                    protected void onAfter(Call<BaseBean<LoginBean>> call) {
+                        super.onAfter(call);
+                    }
+                });
 
     }
 

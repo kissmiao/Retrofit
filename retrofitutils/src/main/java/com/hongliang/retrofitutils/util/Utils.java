@@ -1,4 +1,4 @@
-package com.hongliang.retrofitdemo.httputil;
+package com.hongliang.retrofitutils.util;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,11 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 创建时间：2018/4/8
- * 编写人： chengxin
- * 功能描述：retrofit2工具类
- */
+
 public class Utils {
     public static <T> T checkNotNull(@Nullable T object, String message) {
         if (object == null) {

@@ -1,8 +1,9 @@
 package com.hongliang.retrofitdemo.httputil;
 
 
-import com.hongliang.retrofitdemo.httputil.bean.BaseBean;
+import com.hongliang.retrofitdemo.login.BaseBean;
 import com.hongliang.retrofitdemo.login.LoginBean;
+import com.hongliang.retrofitutils.OkCall;
 
 import java.util.Map;
 

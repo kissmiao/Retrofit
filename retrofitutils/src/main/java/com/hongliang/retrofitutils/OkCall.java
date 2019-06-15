@@ -1,4 +1,4 @@
-package com.hongliang.retrofitdemo.httputil;
+package com.hongliang.retrofitutils;
 
 import java.io.IOException;
 
